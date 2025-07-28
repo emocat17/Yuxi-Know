@@ -31,6 +31,7 @@ dependencies = [
     "pymilvus>=2.5.8",
     "pymupdf>=1.25.5",
     "python-dotenv>=1.1.0",
+    "python-docx>=0.8.11",
     "python-jose[cryptography]>=3.4.0",
     "python-multipart>=0.0.20",
     "pyyaml>=6.0.2",
