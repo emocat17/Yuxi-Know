@@ -1,13 +1,13 @@
 <template>
   <div class="">
-    <HeaderComponent title="设置" class="setting-header">
+    <!-- <HeaderComponent title="设置" class="setting-header">
 
       <template #actions>
         <a-button :type="isNeedRestart ? 'primary' : 'default'" @click="sendRestart" :icon="h(ReloadOutlined)">
           {{ isNeedRestart ? '需要刷新' : '重新加载' }}
         </a-button>
       </template>
-    </HeaderComponent>
+    </HeaderComponent> -->
     <div class="setting-container layout-container">
       <div class="sider" v-if="state.windowWidth > 520">
         <a-button type="text" v-if="userStore.isSuperAdmin" :class="{ activesec: state.section === 'base'}" @click="state.section='base'" :icon="h(SettingOutlined)"> 基本设置 </a-button>
@@ -226,7 +226,7 @@ const openLink = (url) => {
 
 <style lang="less" scoped>
 .setting-container {
-  --setting-header-height: 65px;
+  --setting-header-height: 0px;
 }
 
 .setting-header {
@@ -242,7 +242,7 @@ const openLink = (url) => {
   box-sizing: border-box;
   display: flex;
   position: relative;
-  min-height: calc(100vh - var(--setting-header-height));
+  min-height: calc(100vh - var(--setting-header-height) - 48px);
 }
 
 .sider {
@@ -271,11 +271,11 @@ const openLink = (url) => {
     color: var(--gray-700);
 
     &:hover {
-      background: var(--gray-100);
+      background: var(--gray-50);
     }
 
     &.activesec {
-      background: var(--gray-200);
+      background: var(--gray-100);
       color: var(--gray-900);
     }
   }

@@ -524,9 +524,9 @@ watch(() => props.isOpen, (newVal) => {
 .agent-config-sidebar {
   position: relative;
   width: 0;
-  height: 100vh;
+  height: 100%;
   background: white;
-  border-left: 1px solid #e8e8e8;
+  // border-left: 1px solid #e8e8e8;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   display: flex;

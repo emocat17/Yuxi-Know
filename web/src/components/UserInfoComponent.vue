@@ -1,12 +1,15 @@
 <template>
   <div class="user-info-component">
     <a-dropdown :trigger="['click']" v-if="userStore.isLoggedIn">
-      <div class="user-info-dropdown" :data-align="showRole ? 'left' : 'center'">
-        <div class="user-avatar">
-          <CircleUser />
-          <!-- <div class="user-role-badge" :class="userRoleClass"></div> -->
+      <div class="user-info-dropdown">
+        <div class="user-avatar" v-if="displayMode === 'full' || displayMode === 'icon' ">
+          <SquareUserRound  size="22" stroke-width="1.7"  />
         </div>
-        <div v-if="showRole">{{ userStore.username }}</div>
+        <div v-if="displayMode === 'full' || displayMode === 'name'" class="user-text-details">
+          <span class="username">{{ userStore.username }}</span>
+          <span class="separator">·</span>
+          <span class="role">{{ userRoleText }}</span>
+        </div>
       </div>
       <template #overlay>
           <a-menu>
@@ -17,14 +20,17 @@
             <span class="user-menu-role">{{ userRoleText }}</span>
           </a-menu-item>
           <a-menu-divider />
+          <a-menu-item v-if="userStore.userRole === 'admin' || userStore.userRole === 'superadmin'" key="setting" @click="goToSetting">
+            <SettingOutlined /> &nbsp;设置
+          </a-menu-item>
           <a-menu-item key="logout" @click="logout">
             <LogoutOutlined /> &nbsp;退出登录
           </a-menu-item>
         </a-menu>
       </template>
     </a-dropdown>
-    <a-button v-else-if="showButton" type="primary" @click="goToLogin">
-      登录
+    <a-button v-else-if="displayMode === 'full'" type="primary" @click="goToLogin">
+      登录 / 注册
     </a-button>
     <div v-else class="login-icon" @click="goToLogin">
       <UserRoundCheck />
@@ -36,29 +42,19 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons-vue';
+import { LogoutOutlined, SettingOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
-import { CircleUser, UserRoundCheck } from 'lucide-vue-next';
+import { SquareUserRound , UserRoundCheck } from 'lucide-vue-next';
 
 const router = useRouter();
 const userStore = useUserStore();
 
 const props = defineProps({
-  showRole: {
-    type: Boolean,
-    default: false
-  },
-  showButton: {
-    type: Boolean,
-    default: false
+  displayMode: {
+    type: String,
+    default: 'icon' // 'icon' or 'full' or 'name'
   }
 })
-
-// 用户名首字母（用于显示在头像中）
-const userInitial = computed(() => {
-  if (!userStore.username) return '?';
-  return userStore.username.charAt(0).toUpperCase();
-});
 
 // 用户角色显示文本
 const userRoleText = computed(() => {
@@ -74,15 +70,6 @@ const userRoleText = computed(() => {
   }
 });
 
-// 用户角色徽章样式类
-const userRoleClass = computed(() => {
-  return {
-    'superadmin': userStore.userRole === 'superadmin',
-    'admin': userStore.userRole === 'admin',
-    'user': userStore.userRole === 'user'
-  };
-});
-
 // 退出登录
 const logout = () => {
   userStore.logout();
@@ -95,6 +82,11 @@ const logout = () => {
 const goToLogin = () => {
   router.push('/login');
 };
+
+// 前往设置页
+const goToSetting = () => {
+  router.push('/setting');
+};
 </script>
 
 <style lang="less" scoped>
@@ -102,22 +94,20 @@ const goToLogin = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gray-800);
-  // margin-bottom: 16px;
+  color: var(--gray-900);
 }
 
 .user-info-dropdown {
-  width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  cursor: pointer;
+  padding: 0px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 
-  &[data-align="center"] {
-    justify-content: center;
-  }
-
-  &[data-align="left"] {
-    justify-content: flex-start;
+  &:hover {
+    background-color: var(--gray-0);
   }
 }
 
@@ -130,33 +120,34 @@ const goToLogin = () => {
   justify-content: center;
   font-weight: bold;
   font-size: 18px;
-  cursor: pointer;
   position: relative;
+  flex-shrink: 0;
+  color: var(--gray-900);
 
   &:hover {
     opacity: 0.9;
   }
 }
 
-.user-role-badge {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  right: 0;
-  bottom: 0;
-  border: 2px solid white;
+.user-text-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
 
-  &.superadmin {
-    background-color: #c1bd00; // 红色，超管
+  .username {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-800);
   }
 
-  &.admin {
-    background-color: #1890ff; // 蓝色，管理员
+  .separator {
+    color: var(--gray-400);
   }
 
-  &.user {
-    background-color: #52c41a; // 绿色，普通用户
+  .role {
+    font-size: 12px;
+    color: var(--gray-500);
   }
 }
 

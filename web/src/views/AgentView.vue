@@ -254,8 +254,8 @@ const toggleConf = () => {
 
 .agent-view-header {
   height: var(--agent-view-header-height);
-  background-color: var(--bg-sider);
-  border-bottom: 1px solid var(--gray-200);
+  // background-color: var(--bg-sider);
+  // border-bottom: 1px solid var(--gray-200);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -292,13 +292,23 @@ const toggleConf = () => {
   min-height: calc(100% - var(--agent-view-header-height));
   overflow: hidden;
   position: relative;
-  // padding: var(--gap-radius);
-  // gap: var(--gap-radius);
+  padding: var(--gap-radius);
+  padding-top: 0;
+  gap: var(--gap-radius);
 
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
+
+    border: 1px solid var(--gray-300);
+  }
+
+  .agent-config-sidebar {
+    border-radius: 8px;
+    border: 1px solid var(--gray-300);
+
   }
 
   .no-agent-selected {
