@@ -1,7 +1,7 @@
 <template>
   <div class="not-found">
-    <h1>404 - 页面还没做</h1>
-    <p>Sorry, Yemian has not been zuoed.</p>
+    <h1>404 - 页面还没开发</h1>
+    <p>Sorry, the page you are looking for has not been developed yet.</p>
   </div>
 </template>
 
