@@ -9,7 +9,7 @@
     <div class="hero-section">
       <div class="glass-header">
         <div class="logo">
-          <img :src="infoStore.organization.logo" :alt="infoStore.organization.name" class="logo-img" />
+          <!-- <img :src="infoStore.organization.logo" :alt="infoStore.organization.name" class="logo-img" /> -->
           <span style="font-size: 1.3rem; font-weight: bold;">{{ infoStore.organization.name }}</span>
         </div>
         <nav class="nav-links">
