@@ -154,11 +154,11 @@
       </div>
 
           <!-- 页脚 -->
-          <div class="login-footer">
+          <!-- <div class="login-footer">
             <a href="https://github.com/xerrors" target="_blank">联系我们</a>
             <a href="https://github.com/xerrors/Yuxi-Know" target="_blank">使用帮助</a>
             <a href="https://github.com/xerrors/Yuxi-Know/blob/main/LICENSE" target="_blank">隐私政策</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

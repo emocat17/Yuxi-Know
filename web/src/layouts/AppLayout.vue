@@ -60,19 +60,19 @@ const getRemoteDatabase = () => {
 }
 
 // Fetch GitHub stars count
-const fetchGithubStars = async () => {
-  try {
-    isLoadingStars.value = true
-    // 公共API，可以直接使用fetch
-    const response = await fetch('https://api.github.com/repos/xerrors/Yuxi-Know')
-    const data = await response.json()
-    githubStars.value = data.stargazers_count
-  } catch (error) {
-    console.error('获取GitHub stars失败:', error)
-  } finally {
-    isLoadingStars.value = false
-  }
-}
+// const fetchGithubStars = async () => {
+//   try {
+//     isLoadingStars.value = true
+//     // 公共API，可以直接使用fetch
+//     const response = await fetch('https://api.github.com/repos/xerrors/Yuxi-Know')
+//     const data = await response.json()
+//     githubStars.value = data.stargazers_count
+//   } catch (error) {
+//     console.error('获取GitHub stars失败:', error)
+//   } finally {
+//     isLoadingStars.value = false
+//   }
+// }
 
 onMounted(async () => {
   // 加载信息配置
@@ -137,12 +137,13 @@ const mainList = [{
       <div class="github nav-item">
         <a-tooltip placement="right">
           <template #title>欢迎 Star</template>
-          <a href="https://github.com/xerrors/Yuxi-Know" target="_blank" class="github-link">
+          <!-- 左下角侧边栏的图标和文字配置 -->
+          <!-- <a href="https://github.com/xerrors/Yuxi-Know" target="_blank" class="github-link">
             <GithubOutlined class="icon" style="color: #222;"/>
             <span v-if="githubStars > 0" class="github-stars">
               <span class="star-count">{{ (githubStars / 1000).toFixed(1) }}k</span>
             </span>
-          </a>
+          </a> -->
         </a-tooltip>
       </div>
       <!-- <div class="nav-item api-docs">
