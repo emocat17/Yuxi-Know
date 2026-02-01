@@ -1,0 +1,21 @@
+﻿services:
+  api:
+    container_name: yuxi-know-api
+  web:
+    container_name: yuxi-know-web
+  graph:
+    container_name: yuxi-know-graph
+  etcd:
+    container_name: yuxi-know-etcd
+  minio:
+    container_name: yuxi-know-minio
+  milvus:
+    container_name: yuxi-know-milvus
+  postgres:
+    container_name: yuxi-know-postgres
+  mineru-vllm-server:
+    container_name: yuxi-know-mineru-vllm-server
+  mineru-api:
+    container_name: yuxi-know-mineru-api
+  paddlex:
+    container_name: yuxi-know-paddlex
