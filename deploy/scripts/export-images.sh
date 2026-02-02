@@ -130,6 +130,16 @@ for IMAGE in $IMAGES; do
         -e "s/{TAG}/$SAFE_TAG/g" \
         -e "s/{TIMESTAMP}/$TIMESTAMP/g")
         
+    # Check if already exported (skip if exists)
+    SEARCH_PATTERN="${PROJECT_NAME}_${SAFE_IMG_NAME}_${SAFE_TAG}_*.tar"
+    # Find existing file (handling spaces if any, though not expected)
+    EXISTING_FILE=$(find "$EXPORT_ROOT" -name "$SEARCH_PATTERN" -print -quit)
+    
+    if [ -n "$EXISTING_FILE" ]; then
+        log "INFO" "Archive for $IMAGE already exists: $EXISTING_FILE. Skipping."
+        continue
+    fi
+        
     FILEPATH="$EXPORT_ROOT/$FILENAME"
     
     log "INFO" "Processing $IMAGE -> $NEW_IMAGE -> $FILENAME"

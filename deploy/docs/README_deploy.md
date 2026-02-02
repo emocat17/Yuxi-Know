@@ -43,12 +43,18 @@ docker compose -f deploy/docker-compose.custom.yml up --build -d
 ### 1.3 导出离线镜像
 运行导出脚本，脚本会自动读取 `deploy/docker-compose.custom.yml` 中的镜像列表，将它们保存为 `.tar` 文件到 `deploy/archives/` 目录。
 
+**功能特性：**
+*   **自动重命名**：脚本会自动将 `yuxi-` 前缀的镜像重命名为 `graph-` 前缀，以保持离线环境的一致性。
+*   **断点续传**：如果 `deploy/archives/` 下已存在对应的镜像文件，脚本会自动跳过，避免重复导出。
+*   **配置灵活**：可通过修改 `deploy/config/save.conf` 调整导出目录、项目名称等配置。
+
 ```bash
 # 在项目根目录下执行
 bash deploy/scripts/export-images.sh
 ```
 
 脚本执行完成后，检查 `deploy/archives/` 目录，应包含所有服务的镜像文件（如 `graph-know_graph-api_0.5.dev_*.tar` 等）。
+同时会生成 `deploy/archives/images_manifest.json` 文件，记录导出的镜像信息。
 
 ## 2. 目标机器：离线部署
 
